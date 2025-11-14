@@ -9,4 +9,7 @@
 - [x] Add react-router
 - [x]Copy html from index_template.html to index.html and tranform it to jsx
 - [x] Extract components
-- [] Setup react-router
+- [x] Setup react-router
+- [x] Add BrowerRouter Component
+- [x] Add routes
+- [x] Add dynamic navigation
