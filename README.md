@@ -8,4 +8,5 @@
 - [x] Add resources
 - [x] Add react-router
 - [x]Copy html from index_template.html to index.html and tranform it to jsx
+- [x] Extract components
 - [] Setup react-router
