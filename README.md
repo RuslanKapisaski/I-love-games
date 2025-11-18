@@ -16,3 +16,4 @@
 - [x] Add dynamic catalog
 - [x] Add dynamic home latest games
 - [x] Add dynamic details page
+- [x] Delete game
