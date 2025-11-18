@@ -13,3 +13,6 @@
 - [x] Add BrowerRouter Component
 - [x] Add routes
 - [x] Add dynamic navigation
+- [x] Add dynamic catalog
+- [x] Add dynamic home latest games
+- [x] Add dynamic details page

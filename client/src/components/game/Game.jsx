@@ -7,8 +7,7 @@ export default function Game({ _id, title, imageUrl, genre }) {
       <div className="details-overlay">
         <p className="name">{title}</p>
         <p className="genre">{genre}</p>
-        <Link to="#" className="details-button">
-          {" "}
+        <Link to={`/games/${_id}/details`} className="details-button">
           Details
         </Link>
       </div>
