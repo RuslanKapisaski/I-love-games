@@ -21,7 +21,7 @@ export default function Home() {
       <div className="welcome-message">
         <h2>ALL new games are</h2>
         <h3>Only in </h3>
-        <img id="logo-left" src="./images/logo./png" alt="logo" />
+        <img id="logo-left" src="./public/images/logo.png" alt="logo" />
       </div>
 
       <div id="home-page">

@@ -42,5 +42,15 @@
     "imageUrl": "/images/cyberpunk.png",
     "summary": "An open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality.",
     "_createdOn": 1607558400000
+  },
+  "2ee3211b-0f13-4b34-ad19-6b98f7eba44c": {
+    "title": "CS 1.6",
+    "genre": "Shooter",
+    "players": 10000000,
+    "date": "1997-09-23",
+    "imageUrl": "https://i.ytimg.com/vi/L-nnoasaoI0/maxresdefault.jpg",
+    "summary": "Counter-Strike 1.6 is a team-based, tactical first-person shooter where two teams, Terrorists and Counter-Terrorists, compete in objective-based rounds. Gameplay revolves around completing goals like planting or defusing a bomb, or rescuing hostages, while earning in-game money for better weapons. A long-lasting and influential game, it is known for its strategic depth and competitive scene. ",
+    "_createdOn": 1763472507444,
+    "_id": "2ee3211b-0f13-4b34-ad19-6b98f7eba44c"
   }
 }

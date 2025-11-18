@@ -6,6 +6,7 @@ import Header from "./components/header/Header";
 import Home from "./components/home/Home";
 import Catalog from "./components/catalog/Catalog";
 import Details from "./components/details/Details";
+import CreateGame from "./components/game-create/CreateGame";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
+        <Route path="/games/create" element={<CreateGame />} />
         <Route path="/games/:gameId/details" element={<Details />} />
       </Routes>
 

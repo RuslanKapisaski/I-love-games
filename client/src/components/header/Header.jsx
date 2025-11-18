@@ -5,12 +5,12 @@ export default function Header() {
     <header>
       <nav>
         <Link className="home" to="/">
-          <img src="./images/logo.png" alt="logo" />{" "}
+          <img src="./public/images/logo.png" alt="logo" />
         </Link>
         <Link to="/catalog">Catalog</Link>
         {/* <!-- Logged-in users --> */}
         <div id="user">
-          <Link to="/games/add">Add Game</Link>
+          <Link to="/games/create">Add Game</Link>
           <Link to="/logout">Logout</Link>
         </div>
         {/* <!-- Guest users --> */}
