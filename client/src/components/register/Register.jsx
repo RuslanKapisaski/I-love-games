@@ -14,6 +14,7 @@ export default function Register() {
       return alert("Passwords missmatch!");
     }
 
+    onRegister(email);
   };
   return (
     //  <!-- Register Page ( Only htmlFor Guest users ) -->

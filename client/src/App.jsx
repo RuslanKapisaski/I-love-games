@@ -12,6 +12,13 @@ import Register from "./components/register/Register.jsx";
 import Login from "./components/login/Login.jsx";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  function registerHandler(email) {
+    setUser({ email });
+    console.log(user);
+  }
+
   return (
     <>
       <Header user={user} />
