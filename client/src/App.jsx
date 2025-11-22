@@ -10,6 +10,7 @@ import Details from "./components/details/Details";
 import CreateGame from "./components/game-create/CreateGame";
 import Register from "./components/register/Register.jsx";
 import Login from "./components/login/Login.jsx";
+import Logout from "./components/logout/Logout.jsx";
 
 function App() {
   const [registeredUsers, setRegisteredUsers] = useState([]);
@@ -20,7 +21,11 @@ function App() {
       throw new Error("Email is taken!");
     }
 
-    setRegisteredUsers((state) => [...state, { email, password }]);
+    const newUser = { email, password };
+    setRegisteredUsers((state) => [...state, newUser]);
+
+    //auto login after register
+    setUser(newUser);
   }
 
   function loginHandler(email, password) {
@@ -33,6 +38,10 @@ function App() {
     }
 
     setUser(user);
+  }
+
+  function logoutHandler() {
+    setUser(null);
   }
 
   return (
@@ -49,6 +58,8 @@ function App() {
           element={<Register user={user} onRegister={registerHandler} />}
         />
         <Route path="/login" element={<Login onLogin={loginHandler} />} />
+
+        <Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
       </Routes>
 
       <Footer />
