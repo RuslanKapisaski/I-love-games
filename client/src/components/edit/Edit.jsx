@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router";
 
 export default function Edit() {
+  const { gameId } = useParams();
+
   const initialValues = {
     title: "",
     genre: "",
@@ -15,6 +18,13 @@ export default function Edit() {
   const changeHandler = (e) => {
     setValues((state) => ({ ...state, [e.target.name]: [e.target.value] }));
   };
+
+  useEffect(() => {
+    fetch(`http://localhost:3030/jsonstore/games/${gameId}`)
+      .then((response) => response.json())
+      .then((result) => setValues(result))
+      .catch((err) => alert(err.message));
+  }, [gameId]);
 
   return (
     //  <!-- add Page ( Only for logged-in users ) -->
