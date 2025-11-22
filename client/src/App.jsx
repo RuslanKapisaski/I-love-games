@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router";
+import { useState } from "react";
 
 import "./App.css";
 import Footer from "./components/footer/Footer";
@@ -13,14 +14,17 @@ import Login from "./components/login/Login.jsx";
 function App() {
   return (
     <>
-      <Header />
+      <Header user={user} />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/games/create" element={<CreateGame />} />
         <Route path="/games/:gameId/details" element={<Details />} />
-        <Route path="/register" element={<Register />} />
+        <Route
+          path="/register"
+          element={<Register user={user} onRegister={registerHandler} />}
+        />
         <Route path="/login" element={<Login />} />
       </Routes>
 
