@@ -14,9 +14,8 @@ import Login from "./components/login/Login.jsx";
 function App() {
   const [user, setUser] = useState(null);
 
-  function registerHandler(email) {
+  function authHandler(email) {
     setUser({ email });
-    console.log(user);
   }
 
   return (
@@ -30,9 +29,9 @@ function App() {
         <Route path="/games/:gameId/details" element={<Details />} />
         <Route
           path="/register"
-          element={<Register user={user} onRegister={registerHandler} />}
+          element={<Register user={user} onRegister={authHandler} />}
         />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={<Login onLogin={authHandler} />} />
       </Routes>
 
       <Footer />
