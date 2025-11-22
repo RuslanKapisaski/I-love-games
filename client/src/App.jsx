@@ -11,6 +11,7 @@ import CreateGame from "./components/game-create/CreateGame";
 import Register from "./components/register/Register.jsx";
 import Login from "./components/login/Login.jsx";
 import Logout from "./components/logout/Logout.jsx";
+import Edit from "./components/edit/Edit.jsx";
 
 function App() {
   const [registeredUsers, setRegisteredUsers] = useState([]);
@@ -53,6 +54,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/games/create" element={<CreateGame />} />
         <Route path="/games/:gameId/details" element={<Details />} />
+        <Route path="/games/:gameId/edit" element={<Edit />} />
         <Route
           path="/register"
           element={<Register user={user} onRegister={registerHandler} />}
