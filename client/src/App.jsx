@@ -12,10 +12,27 @@ import Register from "./components/register/Register.jsx";
 import Login from "./components/login/Login.jsx";
 
 function App() {
+  const [registeredUsers, setRegisteredUsers] = useState([]);
   const [user, setUser] = useState(null);
 
-  function authHandler(email) {
-    setUser({ email });
+  function registerHandler(email, password) {
+    if (registeredUsers.some((user) => user.email === email)) {
+      throw new Error("Email is taken!");
+    }
+
+    setRegisteredUsers((state) => [...state, { email, password }]);
+  }
+
+  function loginHandler(email, password) {
+    const user = registeredUsers.find(
+      (user) => user.email === email && user.password === password
+    );
+
+    if (!user) {
+      throw new Error("No such a user!");
+    }
+
+    setUser(user);
   }
 
   return (
@@ -29,9 +46,9 @@ function App() {
         <Route path="/games/:gameId/details" element={<Details />} />
         <Route
           path="/register"
-          element={<Register user={user} onRegister={authHandler} />}
+          element={<Register user={user} onRegister={registerHandler} />}
         />
-        <Route path="/login" element={<Login onLogin={authHandler} />} />
+        <Route path="/login" element={<Login onLogin={loginHandler} />} />
       </Routes>
 
       <Footer />

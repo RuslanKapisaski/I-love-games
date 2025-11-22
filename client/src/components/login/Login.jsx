@@ -1,7 +1,23 @@
-export default function Login() {
+import { useNavigate } from "react-router";
+
+export default function Login({ user, onLogin }) {
+  const navigate = useNavigate();
+
+  const loginSubmit = (formData) => {
+    const email = formData.get("email");
+    const password = formData.get("password");
+
+    if (!email || !password) {
+      return alert("Email and password are required!");
+    }
+
+    onLogin(email, password);
+    navigate("/");
+  };
+
   return (
     <section id="login-page">
-      <form id="login">
+      <form id="login" action={loginSubmit}>
         <div className="container">
           <h1>Login</h1>
           <label htmlFor="email">Email</label>

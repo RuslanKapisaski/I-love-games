@@ -5,8 +5,6 @@ export default function Register({ user, onRegister }) {
 
   const registerSubmit = (formData) => {
     const email = formData.get("email");
-    console.log(email);
-
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm-password");
 
@@ -18,9 +16,10 @@ export default function Register({ user, onRegister }) {
       return alert("Passwords missmatch!");
     }
 
-    onRegister(email);
+    onRegister(email, password);
     navigate("/");
   };
+
   return (
     //  <!-- Register Page ( Only htmlFor Guest users ) -->
     <section id="register-page" className="content auth">
