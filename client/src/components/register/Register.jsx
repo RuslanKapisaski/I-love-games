@@ -1,4 +1,4 @@
-export default function Register() {
+export default function Register({ user, onRegister }) {
   const registerSubmit = (formData) => {
     const email = formData.get("email");
     console.log(email);
