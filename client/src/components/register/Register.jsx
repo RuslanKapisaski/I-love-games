@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router";
+
 export default function Register({ user, onRegister }) {
+  const navigate = useNavigate();
+
   const registerSubmit = (formData) => {
     const email = formData.get("email");
     console.log(email);
@@ -15,6 +19,7 @@ export default function Register({ user, onRegister }) {
     }
 
     onRegister(email);
+    navigate("/");
   };
   return (
     //  <!-- Register Page ( Only htmlFor Guest users ) -->
