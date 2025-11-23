@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 
 export default function Details() {
+import DetailsComment from "./details-comments/DetailsComment";
+export default function Details({ user }) {
+  const navigate = useNavigate();
   const { gameId } = useParams();
   const [game, setGame] = useState({});
   const navigate = useNavigate();
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:3030/jsonstore/games/${gameId}`)
@@ -14,6 +19,11 @@ export default function Details() {
       })
       .catch((err) => alert(err.message));
   }, [gameId]);
+  }, [gameId, refresh]);
+
+  function refreshHandler() {
+    setRefresh((state) => !state);
+  }
 
   async function deleteHandler() {
     const isConfirmed = confirm(
@@ -101,6 +111,8 @@ export default function Details() {
             <input className="btn submit" type="submit" value="Add Comment" />
           </form>
         </article>
+
+        <DetailsComment refresh={refresh} />
       </section>
     );
   }
