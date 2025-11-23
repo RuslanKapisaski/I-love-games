@@ -4,6 +4,8 @@ import { Link, useNavigate, useParams } from "react-router";
 
 export default function Details() {
 import DetailsComment from "./details-comments/DetailsComment";
+import CreateComment from "./create-comment/CreateComment";
+
 export default function Details({ user }) {
   const navigate = useNavigate();
   const { gameId } = useParams();
@@ -113,6 +115,7 @@ export default function Details({ user }) {
         </article>
 
         <DetailsComment refresh={refresh} />
+        {user && <CreateComment user={user} onCreate={refreshHandler} />}
       </section>
     );
   }
