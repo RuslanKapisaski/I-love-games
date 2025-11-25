@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import Game from "../game/Game";
+import useFetch from "../../hooks/useFetch";
 
 export default function Home() {
-  const [latestGames, setLatestGames] = useState([]);
-
-  useEffect(() => {
-    fetch("http://localhost:3030/jsonstore/games")
-      .then((response) => response.json())
-      .then((result) => {
-        const latest = Object.values(result)
-          .sort((a, b) => b._createdOn - a._createdOn)
-          .slice(0, 3);
-        setLatestGames(latest);
-      })
-      .catch((err) => alert(err.message));
-  }, []);
+  const {
+    state: latestGames,
+    error,
+    loading,
+  } = useFetch(
+    "http://localhost:3030/jsonstore/games",
+    [],
+    (data) => Object.values(data),
+    (arr) => arr.sort((a, b) => b._createdOn - a._createdOn),
+    3
+  );
 
   return (
     <section id="welcome-world">
@@ -27,16 +26,20 @@ export default function Home() {
       <div id="home-page">
         <h1>Latest Games</h1>
         <div id="latest-wrap">
-          {/* <!-- Display div: with information about every game (if any) --> */}
-          <div className="home-container">
-            {latestGames.length === 0 && (
-              <p className="no-articles">No Added Games Yet</p>
-            )}
+          {error && <p className="no-articles">Loading games error:{error}</p>}
+          {loading === true ? (
+            <p className="no-articles">Loading...</p>
+          ) : (
+            <div className="home-container">
+              {latestGames.length === 0 && (
+                <p className="no-articles">No Added Games Yet</p>
+              )}
 
-            {latestGames.map((game) => (
-              <Game key={game._id} {...game} />
-            ))}
-          </div>
+              {latestGames.map((game) => (
+                <Game key={game._id} {...game} />
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

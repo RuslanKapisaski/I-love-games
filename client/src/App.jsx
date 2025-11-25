@@ -53,7 +53,6 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/games/create" element={<CreateGame />} />
-        <Route path="/games/:gameId/details" element={<Details />} />
         <Route
           path="/games/:gameId/details"
           element={<Details user={user} />}
