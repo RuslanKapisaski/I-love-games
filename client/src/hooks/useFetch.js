@@ -12,8 +12,9 @@ export default function useFetch(
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true);
-    fetch(url)
+    const abortController = new AbortController();
+
+    fetch(url, { signal: abortController.signal })
       .then((responce) => {
         if (!responce.ok) {
           throw new Error(responce.text);
@@ -30,6 +31,10 @@ export default function useFetch(
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
+
+    return () => {
+      abortController.abort();
+    };
   }, [url]);
 
   return { state, error, loading };
