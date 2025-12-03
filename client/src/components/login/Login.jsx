@@ -1,5 +1,7 @@
 import { useContext } from "react";
+
 import { useNavigate } from "react-router";
+import useForm from "../../hooks/useForm";
 import UserContext from "../../contexts/UserContext";
 
 export default function Login() {
@@ -7,28 +9,36 @@ export default function Login() {
 
   const { loginHandler } = useContext(UserContext);
 
-  const loginSubmit = (formData) => {
-    const email = formData.get("email");
-    const password = formData.get("password");
+  const submitHandler = async ({ email, password }) => {
+    console.log(email);
 
     if (!email || !password) {
       return alert("Email and password are required!");
     }
 
-    loginHandler(email, password);
+    try {
+      await loginHandler(email, password);
+    } catch (error) {
+      alert(error.message);
+    }
     navigate("/");
   };
 
+  const { register, formAction } = useForm(submitHandler, {
+    email: "",
+    password: "",
+  });
+
   return (
     <section id="login-page">
-      <form id="login" action={loginSubmit}>
+      <form id="login" action={formAction}>
         <div className="container">
           <h1>Login</h1>
           <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"
-            name="email"
+            {...register("email")}
             placeholder="Your Email"
           />
 
@@ -36,7 +46,7 @@ export default function Login() {
           <input
             type="password"
             id="login-password"
-            name="password"
+            {...register("password")}
             placeholder="Password"
           />
           <input type="submit" className="btn submit" value="Login" />

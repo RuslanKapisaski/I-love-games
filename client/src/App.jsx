@@ -35,12 +35,23 @@ function App() {
     setUser(newUser);
   }
 
-  function loginHandler(email, password) {
-    if (!user) {
-      throw new Error("No such a user!");
+  async function loginHandler(email, password) {
+    const response = await fetch("http://localhost:3030/users/login", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.message || "Login failed");
     }
 
-    setUser(user);
+    const userData = await response.json();
+    setUser(userData);
+    return userData;
   }
 
   function logoutHandler() {
