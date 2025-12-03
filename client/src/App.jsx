@@ -12,6 +12,7 @@ import Register from "./components/register/Register.jsx";
 import Login from "./components/login/Login.jsx";
 import Logout from "./components/logout/Logout.jsx";
 import Edit from "./components/edit/Edit.jsx";
+import UserContext from "./contexts/UserContext.js";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -30,8 +31,8 @@ function App() {
       .then((result) => setUser(result))
       .catch((err) => alert(err.message));
 
-    // //auto login after register
-    // setUser(newUser);
+    //auto login after register
+    setUser(newUser);
   }
 
   function loginHandler(email, password) {
@@ -46,30 +47,37 @@ function App() {
     setUser(null);
   }
 
+  const userContextValues = {
+    user,
+    isAuthenticated: !!user?.accessToken,
+    registerHandler,
+    loginHandler,
+    logoutHandler,
+  };
+
   return (
-    <>
-      <Header user={user} />
+    <UserContext.Provider value={userContextValues}>
+      <>
+        <Header user={user} />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/catalog" element={<Catalog />} />
-        <Route path="/games/create" element={<CreateGame />} />
-        <Route
-          path="/games/:gameId/details"
-          element={<Details user={user} />}
-        />
-        <Route path="/games/:gameId/edit" element={<Edit />} />
-        <Route
-          path="/register"
-          element={<Register user={user} onRegister={registerHandler} />}
-        />
-        <Route path="/login" element={<Login onLogin={loginHandler} />} />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/catalog" element={<Catalog />} />
+          <Route path="/games/create" element={<CreateGame />} />
+          <Route
+            path="/games/:gameId/details"
+            element={<Details user={user} />}
+          />
+          <Route path="/games/:gameId/edit" element={<Edit />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
 
-        <Route path="/logout" element={<Logout onLogout={logoutHandler} />} />
-      </Routes>
+          <Route path="/logout" element={<Logout />} />
+        </Routes>
 
-      <Footer />
-    </>
+        <Footer />
+      </>
+    </UserContext.Provider>
   );
 }
 

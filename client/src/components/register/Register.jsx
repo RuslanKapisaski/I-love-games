@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router";
 import useForm from "../../hooks/useForm";
+import { useContext } from "react";
+import UserContext from "../../contexts/UserContext";
 
-export default function Register({ user, onRegister }) {
+export default function Register() {
   const navigate = useNavigate();
 
-  const registerSubmit = (formData) => {
+  const { registerHandler } = useContext(UserContext);
+
+  const registerSubmitHandler = (formData) => {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirmPassword");
@@ -17,11 +21,12 @@ export default function Register({ user, onRegister }) {
       return alert("Passwords missmatch!");
     }
 
-    onRegister(email, password);
+    registerHandler(email, password);
+
     navigate("/");
   };
 
-  const { register, formAction } = useForm(registerSubmit, {
+  const { register, formAction } = useForm(registerSubmitHandler, {
     email: "",
     password: "",
     confirmPassword: "",

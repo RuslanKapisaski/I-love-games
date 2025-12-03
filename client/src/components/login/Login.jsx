@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router";
+import UserContext from "../../contexts/UserContext";
 
-export default function Login({ user, onLogin }) {
+export default function Login() {
   const navigate = useNavigate();
+
+  const { loginHandler } = useContext(UserContext);
 
   const loginSubmit = (formData) => {
     const email = formData.get("email");
@@ -11,7 +15,7 @@ export default function Login({ user, onLogin }) {
       return alert("Email and password are required!");
     }
 
-    onLogin(email, password);
+    loginHandler(email, password);
     navigate("/");
   };
 

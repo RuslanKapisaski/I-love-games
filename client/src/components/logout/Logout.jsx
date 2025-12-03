@@ -1,9 +1,13 @@
-import { useNavigate } from "react-router";
+import { useContext } from "react";
 
-export default function Logout({ onLogout }) {
+import { useNavigate } from "react-router";
+import UserContext from "../../contexts/UserContext";
+
+export default function Logout() {
   const navigate = useNavigate();
 
-  onLogout();
+  const { logoutHandler } = useContext(UserContext);
+  logoutHandler();
 
   navigate("/");
 }
