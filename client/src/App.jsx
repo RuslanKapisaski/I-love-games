@@ -14,26 +14,27 @@ import Logout from "./components/logout/Logout.jsx";
 import Edit from "./components/edit/Edit.jsx";
 
 function App() {
-  const [registeredUsers, setRegisteredUsers] = useState([]);
   const [user, setUser] = useState(null);
 
   function registerHandler(email, password) {
-    if (registeredUsers.some((user) => user.email === email)) {
-      throw new Error("Email is taken!");
-    }
-
     const newUser = { email, password };
-    setRegisteredUsers((state) => [...state, newUser]);
 
-    //auto login after register
-    setUser(newUser);
+    fetch("http://localhost:3030/users/register", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    })
+      .then((responce) => responce.json())
+      .then((result) => setUser(result))
+      .catch((err) => alert(err.message));
+
+    // //auto login after register
+    // setUser(newUser);
   }
 
   function loginHandler(email, password) {
-    const user = registeredUsers.find(
-      (user) => user.email === email && user.password === password
-    );
-
     if (!user) {
       throw new Error("No such a user!");
     }

@@ -26,6 +26,7 @@ export default function Register({ user, onRegister }) {
     password: "",
     confirmPassword: "",
   });
+
   return (
     //  <!-- Register Page ( Only htmlFor Guest users ) -->
     <section id="register-page" className="content auth">
