@@ -15,7 +15,6 @@ import Edit from "./components/edit/Edit.jsx";
 import { UserContext } from "./contexts/UserContext.jsx";
 
 function App() {
-  const { user } = useContext(UserContext);
   return (
     <>
       <Header />
@@ -23,10 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/games/create" element={<CreateGame />} />
-        <Route
-          path="/games/:gameId/details"
-          element={<Details user={user} />}
-        />
+        <Route path="/games/:gameId/details" element={<Details />} />
         <Route path="/games/:gameId/edit" element={<Edit />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

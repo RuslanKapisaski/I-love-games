@@ -1,6 +1,8 @@
 import { Link } from "react-router";
+import { useUserContext } from "../../contexts/UserContext";
 
 export default function Header() {
+  const { isAuthenticated } = useUserContext();
   return (
     <header>
       <nav>
@@ -9,15 +11,17 @@ export default function Header() {
         </Link>
         <Link to="/catalog">Catalog</Link>
         {/* <!-- Logged-in users --> */}
-        <div id="user">
-          <Link to="/games/create">Add Game</Link>
-          <Link to="/logout">Logout</Link>
-        </div>
-        {/* <!-- Guest users --> */}
-        <div id="guest">
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
-        </div>
+        {isAuthenticated === true ? (
+          <div id="user">
+            <Link to="/games/create">Add Game</Link>
+            <Link to="/logout">Logout</Link>
+          </div>
+        ) : (
+          <div id="guest">
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </div>
+        )}
       </nav>
     </header>
   );

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 export const UserContext = createContext({
   user: null,
@@ -78,4 +78,9 @@ export function UserProvider({ children }) {
       {children}
     </UserContext.Provider>
   );
+}
+
+export function useUserContext() {
+  const contextData = useContext(UserContext);
+  return contextData;
 }
