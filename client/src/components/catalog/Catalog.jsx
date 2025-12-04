@@ -1,21 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import Game from "../game/Game";
+import useRequest from "../../hooks/useRequest";
 
 export default function Catalog() {
-  const BASE_URL = "http://localhost:3030/jsonstore/games";
-  const [games, setGames] = useState([]);
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch(BASE_URL);
-        const result = await response.json();
-        setGames(Object.values(result));
-      } catch (error) {
-        alert(error.message);
-      }
-    })();
-  }, []);
+  const { data: games } = useRequest("/data/games", []);
 
   return (
     <section id="catalog-page">
