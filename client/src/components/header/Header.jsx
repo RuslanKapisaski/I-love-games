@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { useUserContext } from "../../contexts/UserContext";
 
 export default function Header() {
-  const { isAuthenticated } = useUserContext();
+  const { isAuthenticated, user } = useUserContext();
   return (
     <header>
       <nav>
@@ -22,6 +22,7 @@ export default function Header() {
             <Link to="/register">Register</Link>
           </div>
         )}
+        {user && <p>{user.email}</p>}
       </nav>
     </header>
   );

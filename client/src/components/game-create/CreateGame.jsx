@@ -1,12 +1,11 @@
 import { useNavigate } from "react-router";
+import useForm from "../../hooks/useForm";
 
 export default function CreateGame() {
   const navigate = useNavigate();
 
-  async function createGameHandler(formData) {
-    const data = Object.fromEntries(formData);
-    data.players = Number(data.players);
-    data._createdOn = Date.now();
+  async function createGameHandler(values) {
+    const data = values;
 
     try {
       await fetch("http://localhost:3030/jsonstore/games", {
@@ -24,10 +23,18 @@ export default function CreateGame() {
     }
   }
 
+  const { register, formAction } = useForm(createGameHandler, {
+    title: "",
+    genre: "",
+    players: 0,
+    date: null,
+    imageUrl: "",
+    summary: "",
+  });
   return (
     //  <!-- add Page ( Only for logged-in users ) -->
     <section id="add-page">
-      <form id="add-new-game" action={createGameHandler}>
+      <form id="add-new-game" action={formAction}>
         <div className="container">
           <h1>Add New Game</h1>
 
@@ -36,7 +43,7 @@ export default function CreateGame() {
             <input
               type="text"
               id="gameName"
-              name="title"
+              {...register("title")}
               placeholder="Enter game title..."
             />
           </div>
@@ -46,7 +53,7 @@ export default function CreateGame() {
             <input
               type="text"
               id="genre"
-              name="genre"
+              {...register("genre")}
               placeholder="Enter game genre..."
             />
           </div>
@@ -56,7 +63,7 @@ export default function CreateGame() {
             <input
               type="number"
               id="activePlayers"
-              name="players"
+              {...register("players")}
               min="0"
               placeholder="0"
             />
@@ -72,7 +79,7 @@ export default function CreateGame() {
             <input
               type="text"
               id="imageUrl"
-              name="imageUrl"
+              {...register("imageUrl")}
               placeholder="Enter image URL..."
             />
           </div>
@@ -80,9 +87,9 @@ export default function CreateGame() {
           <div className="form-group-full">
             <label htmlFor="summary">Summary:</label>
             <textarea
-              name="summary"
               id="summary"
               rows="5"
+              {...register("summary")}
               placeholder="Write a brief summary..."
             ></textarea>
           </div>

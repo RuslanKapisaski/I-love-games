@@ -3,9 +3,11 @@ import { Link, useNavigate, useParams } from "react-router";
 
 import DetailsComment from "./details-comments/DetailsComment";
 import CreateComment from "./create-comment/CreateComment";
+import { useUserContext } from "../../contexts/UserContext";
 
-export default function Details({ user }) {
+export default function Details() {
   const navigate = useNavigate();
+  const { user } = useUserContext();
   const { gameId } = useParams();
   const [game, setGame] = useState({});
   const [refresh, setRefresh] = useState(false);
