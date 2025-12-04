@@ -4,22 +4,15 @@ import { Link, useNavigate, useParams } from "react-router";
 import DetailsComment from "./details-comments/DetailsComment";
 import CreateComment from "./create-comment/CreateComment";
 import { useUserContext } from "../../contexts/UserContext";
+import useRequest from "../../hooks/useRequest";
 
 export default function Details() {
   const navigate = useNavigate();
   const { user } = useUserContext();
   const { gameId } = useParams();
-  const [game, setGame] = useState({});
   const [refresh, setRefresh] = useState(false);
-
-  useEffect(() => {
-    fetch(`http://localhost:3030/jsonstore/games/${gameId}`)
-      .then((response) => response.json())
-      .then((result) => {
-        setGame(result);
-      })
-      .catch((err) => alert(err.message));
-  }, [gameId, refresh]);
+  const { request } = useRequest();
+  const { data: game } = useRequest(`/data/games/${gameId}`, {});
 
   function refreshHandler() {
     setRefresh((state) => !state);
@@ -35,9 +28,7 @@ export default function Details() {
     }
 
     try {
-      await fetch(`http://localhost:3030/jsonstore/games/${gameId}`, {
-        method: "DELETE",
-      });
+      await request(`/data/games/${gameId}`, "DELETE");
 
       navigate("/catalog");
     } catch (err) {
