@@ -4,22 +4,19 @@ import useRequest from "../../hooks/useRequest";
 
 export default function CreateGame() {
   const navigate = useNavigate();
-
+  const { request } = useRequest();
   async function createGameHandler(values) {
     const data = values;
-    const newGame = useRequest();
+
+    data.players = Number(data.players);
+    data._createdOn = Date.now();
+
     try {
-      await fetch("http://localhost:3030", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((res) => console.log(res));
+      const newGame = request("/data/games", "POST", data);
       navigate("/catalog");
     } catch (err) {
+      throw new Error(err.message);
+
       alert(`Unable to create new game`, err.message);
     }
   }
@@ -28,7 +25,7 @@ export default function CreateGame() {
     title: "",
     genre: "",
     players: 0,
-    date: null,
+    date: "",
     imageUrl: "",
     summary: "",
   });

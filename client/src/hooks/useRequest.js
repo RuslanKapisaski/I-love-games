@@ -3,33 +3,45 @@ import { UserContext } from "../contexts/UserContext";
 
 const baseUrl = "http://localhost:3030";
 
-export default function useRequest(URL, method, data, config = {}) {
+export default function useRequest() {
   const { user, isAuthenticated } = useContext(UserContext);
 
-  let options = {};
+  const request = async (url, method = "GET", data = null, config = {}) => {
+    let options = {};
 
-  if (method) {
-    options.method = method;
-  }
+    if (method) {
+      options.method = method;
+    }
 
-  if (data) {
-    options.headers = {
-      "content-type": "application/json",
-    };
-  }
+    if (data) {
+      options.headers = {
+        "content-type": "application/json",
+      };
+    }
 
-  options.body = JSON.stringify(data);
+    options.body = JSON.stringify(data);
 
-  if (config.accessToken || isAuthenticated) {
-    options.headers = {
-      "X-Auhtorization": config.accessToken || user.accessToken,
-    };
-  }
+    if (config.accessToken || isAuthenticated) {
+      options.headers = {
+        "X-Authorization": config.accessToken || user.accessToken,
+      };
+    }
 
-  fetch(`${baseUrl}${url}`, options)
-    .then((responce) => responce.json())
-    .then((result) => {
-      return result;
-    })
-    .catch((err) => alert(err.message));
+    try {
+      const response = await fetch(`${baseUrl}${url}`, options);
+
+      if (!response.ok) {
+        throw new Error(
+          `Request failed: ${result.message || response.statusText}`
+        );
+      }
+
+      return response.json();
+    } catch (err) {
+      alert(err.message);
+      throw err;
+    }
+  };
+
+  return { request };
 }
