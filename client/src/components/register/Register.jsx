@@ -8,11 +8,7 @@ export default function Register() {
 
   const { registerHandler } = useContext(UserContext);
 
-  const registerSubmitHandler = (formData) => {
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const confirmPassword = formData.get("confirmPassword");
-
+  const registerSubmitHandler = ({ email, password, confirmPassword }) => {
     if (!email || !password) {
       return alert("Email and password are required!");
     }

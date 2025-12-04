@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import "./App.css";
 import Footer from "./components/footer/Footer";
@@ -16,6 +16,7 @@ import UserContext from "./contexts/UserContext.js";
 
 function App() {
   const [user, setUser] = useState(null);
+  const { isAuthenticated } = useContext(UserContext);
 
   function registerHandler(email, password) {
     const newUser = { email, password };
@@ -55,7 +56,19 @@ function App() {
   }
 
   function logoutHandler() {
-    setUser(null);
+    const options = {};
+    options.method = "POST";
+    options.headers = {
+      "content-type": "application/json",
+    };
+
+    if (isAuthenticated) {
+      options.headers["X-Authorization"] = user.accessToken;
+    }
+
+    return fetch("http://localhost:3030/users/logout", options).finally(() =>
+      setUser(null)
+    );
   }
 
   const userContextValues = {
@@ -69,7 +82,7 @@ function App() {
   return (
     <UserContext.Provider value={userContextValues}>
       <>
-        <Header user={user} />
+        <Header />
 
         <Routes>
           <Route path="/" element={<Home />} />
