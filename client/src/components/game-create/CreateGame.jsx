@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router";
 import useForm from "../../hooks/useForm";
+import useRequest from "../../hooks/useRequest";
 
 export default function CreateGame() {
   const navigate = useNavigate();
 
   async function createGameHandler(values) {
     const data = values;
-
+    const newGame = useRequest();
     try {
-      await fetch("http://localhost:3030/jsonstore/games", {
+      await fetch("http://localhost:3030", {
         method: "POST",
         headers: {
           "content-type": "application/json",

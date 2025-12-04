@@ -3,10 +3,8 @@ import { UserContext } from "../contexts/UserContext";
 
 const baseUrl = "http://localhost:3030";
 
-export default function useRequest() {
+export default function useRequest(URL, method, data, config = {}) {
   const { user, isAuthenticated } = useContext(UserContext);
-
-  const request = async(URL, method, data, (config = {}));
 
   let options = {};
 
