@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import useForm from "../../hooks/useForm";
 import { useContext } from "react";
-import UserContext from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Register() {
   const navigate = useNavigate();

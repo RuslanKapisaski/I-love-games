@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { useNavigate } from "react-router";
 import useForm from "../../hooks/useForm";
-import UserContext from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Login() {
   const navigate = useNavigate();
